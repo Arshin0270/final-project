@@ -1,5 +1,5 @@
-from sqlalchemy import  Column, Integer, String,Boolean,Date,BIGINT,SMALLINT,ForeignKey
-from .database import Base
+from sqlalchemy import  Column, Integer, String,Boolean,BIGINT,SMALLINT,ForeignKey
+from database import Base
 
 class course(Base):
     __tablename__='course'
@@ -16,7 +16,7 @@ class teacher(Base):
     ID=Column(BIGINT,unique=True)
     Department=Column(String)
     Major=Column(String)
-    Birth=Column(Date)
+    Birth=Column(String)
     Borncity=Column(String)
     Address=Column(String)
     Postalcode=Column(BIGINT)
@@ -30,7 +30,7 @@ class student(Base):
     FName=Column(String)
     LName=Column(String)
     Father=Column(String)
-    Birth=Column(Date)
+    Birth=Column(String)
     IDS=Column(String,unique=True)
     Borncity=Column(String)
     Address=Column(String)

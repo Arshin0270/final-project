@@ -16,7 +16,7 @@ class teacher(BaseModel):
     ID:int
     Department:str
     Major:str
-    Birth:date
+    Birth:str
     Borncity:str
     Address:str
     Postalcode:int
@@ -29,7 +29,7 @@ class student(BaseModel):
     FName:str
     LName:str
     Father:str
-    Birth:date
+    Birth:str
     IDS:str
     Borncity:str
     Address:str
