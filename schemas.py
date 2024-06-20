@@ -1,16 +1,16 @@
 from pydantic import BaseModel
-from datetime import date
+
 
 
 
 class course(BaseModel):
-    CID:int
+    CID:str
     CName:str
     Department:str
     Credit:int
 
 class teacher(BaseModel):
-    LID:int
+    LID:str
     FName:str
     LName:str
     ID:int
@@ -19,13 +19,13 @@ class teacher(BaseModel):
     Birth:str
     Borncity:str
     Address:str
-    Postalcode:int
-    CPone:int
-    HPone:int
-    LCourseID:int
+    Postalcode:str
+    CPone:str
+    HPone:str
+    LCourseID:str
 
 class student(BaseModel):
-    STID:int
+    STID:str
     FName:str
     LName:str
     Father:str
@@ -33,14 +33,14 @@ class student(BaseModel):
     IDS:str
     Borncity:str
     Address:str
-    Postalcode:int
-    CPone:int
-    CHome:int
+    Postalcode:str
+    CPone:str
+    CHome:str
     Department:str
     Major:str
-    Married:bool
+    Married:str
     ID:int
-    SCourse:int
-    LIDs:int
+    SCourse:str
+    LIDs:str
 
 

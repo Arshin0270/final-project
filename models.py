@@ -3,14 +3,14 @@ from database import Base
 
 class course(Base):
     __tablename__='course'
-    CID=Column(Integer,primary_key=True)
+    CID=Column(String,primary_key=True)
     CName=Column(String)
     Department=Column(String)
     Credit=Column(SMALLINT)
 
 class teacher(Base):
     __tablename__='teacher'
-    LID=Column(Integer,primary_key=True)
+    LID=Column(String,primary_key=True)
     FName=Column(String)
     LName=Column(String)
     ID=Column(BIGINT,unique=True)
@@ -19,14 +19,14 @@ class teacher(Base):
     Birth=Column(String)
     Borncity=Column(String)
     Address=Column(String)
-    Postalcode=Column(BIGINT)
-    CPone=Column(BIGINT)
-    HPone=Column(BIGINT)
-    LCourseID=Column(Integer)
+    Postalcode=Column(String)
+    CPone=Column(String)
+    HPone=Column(String)
+    LCourseID=Column(String)
 
 class student(Base):
     __tablename__='student'
-    STID=Column(BIGINT,primary_key=True)
+    STID=Column(String,primary_key=True)
     FName=Column(String)
     LName=Column(String)
     Father=Column(String)
@@ -34,15 +34,15 @@ class student(Base):
     IDS=Column(String,unique=True)
     Borncity=Column(String)
     Address=Column(String)
-    Postalcode=Column(BIGINT)
-    CPone=Column(BIGINT)
-    CHome=Column(BIGINT)
+    Postalcode=Column(String)
+    CPone=Column(String)
+    CHome=Column(String)
     Department=Column(String)
     Major=Column(String)
-    Married=Column(Boolean)
+    Married=Column(String)
     ID=Column(BIGINT,unique=True)
-    SCourse=Column(Integer)
-    LIDs=Column(Integer)
+    SCourse=Column(String)
+    LIDs=Column(String)
 
 class course_teacher_student(Base):
     __tablename__='course_teachero_tudent'
