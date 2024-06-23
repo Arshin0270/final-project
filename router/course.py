@@ -14,7 +14,7 @@ def create_course(course: schemas.course, db: Session = Depends(get_db)):
     validation.checkcourse(value=course)
     db_course = crud.get_course(db=db,course_id=course.CID) 
     if db_course:
-        raise HTTPException(status_code=400, detail="course already exists")
+        raise HTTPException(status_code=400, detail="درس وجود دارد")
     return crud.create_course(db=db, course=course)
 
 
@@ -22,5 +22,5 @@ def create_course(course: schemas.course, db: Session = Depends(get_db)):
 def read_course(course_id: int, db: Session = Depends(get_db)):
     db_course = crud.get_course(db=db, course_id=course_id)
     if db_course is None:
-        raise HTTPException(status_code=404, detail="course not found")
+        raise HTTPException(status_code=404, detail="درس یافت نشد")
     return db_course

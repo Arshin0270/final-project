@@ -14,7 +14,7 @@ def create_teacher(teacher:schemas.teacher,db:Session=Depends(get_db)):
     validation.checkteacher(value=teacher)
     db_teacher=crud.get_teacher(db=db,teacher_id=teacher.LID)
     if db_teacher!=None:
-        raise HTTPException(status_code=400,detail='teacher already exists')
+        raise HTTPException(status_code=400,detail='استاد وجود دارد')
     return crud.create_teacher(db=db,teacher=teacher)
 
 
@@ -22,5 +22,5 @@ def create_teacher(teacher:schemas.teacher,db:Session=Depends(get_db)):
 def read_teacher(teacher_id:int,db:Session=Depends(get_db)):
     db_teacher=crud.get_teacher(teacher_id=teacher_id,db=db)
     if db_teacher is None:
-        raise HTTPException(status_code=404,detail='teacher is not found')
+        raise HTTPException(status_code=404,detail='استاد یافت نشد')
     return db_teacher

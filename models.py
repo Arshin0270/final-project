@@ -1,4 +1,4 @@
-from sqlalchemy import  Column, Integer, String,Boolean,BIGINT,SMALLINT,ForeignKey
+from sqlalchemy import  Column, Integer, String,SMALLINT,ForeignKey
 from database import Base
 
 class course(Base):
@@ -13,7 +13,7 @@ class teacher(Base):
     LID=Column(String,primary_key=True)
     FName=Column(String)
     LName=Column(String)
-    ID=Column(BIGINT,unique=True)
+    ID=Column(String,unique=True)
     Department=Column(String)
     Major=Column(String)
     Birth=Column(String)
@@ -40,14 +40,13 @@ class student(Base):
     Department=Column(String)
     Major=Column(String)
     Married=Column(String)
-    ID=Column(BIGINT,unique=True)
+    ID=Column(String,unique=True)
     SCourse=Column(String)
     LIDs=Column(String)
 
 class course_teacher_student(Base):
-    __tablename__='course_teachero_tudent'
+    __tablename__='course_teacher_tudent'
     counter=Column(Integer,primary_key=True)
-    CID=Column(Integer,ForeignKey('course.CID'))
-    LCourseID=Column(Integer,ForeignKey('teacher.LID'))
-    LIDs=Column(Integer,ForeignKey('student.STID'))
-
+    CID=Column(String,ForeignKey('course.CID'))
+    LID=Column(String,ForeignKey('teacher.LID'))
+    STID=Column(String,ForeignKey('student.STID'))

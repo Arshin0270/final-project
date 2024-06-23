@@ -13,7 +13,7 @@ class teacher(BaseModel):
     LID:str
     FName:str
     LName:str
-    ID:int
+    ID:str
     Department:str
     Major:str
     Birth:str
@@ -39,7 +39,7 @@ class student(BaseModel):
     Department:str
     Major:str
     Married:str
-    ID:int
+    ID:str
     SCourse:str
     LIDs:str
 
