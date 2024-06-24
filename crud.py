@@ -1,10 +1,9 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, Update ,delete
 import models, schemas
 
 
 def get_course(db: Session, course_id: int):
     return db.query(models.course).filter(models.course.CID == course_id).first()
-
 
 def create_course(db: Session, course: schemas.course):
     db_course = models.course(CID=course.CID, CName=course.CName,Department=course.Department,Credit=course.Credit)
@@ -12,6 +11,18 @@ def create_course(db: Session, course: schemas.course):
     db.commit()
     db.refresh(db_course)
     return db_course
+
+def update_course(db:Session,data,id:int):
+    query=Update(models.course).where(models.course.CID==id).value(data)
+    db.execute(query)
+    db.commit()
+
+def delete_course(db:Session,id:int):
+    query=delete(models.course).where(models.course.CID==id)
+    db.execute(query)
+    db.commit()
+
+
 
 def get_teacher(db:Session,teacher_id:int):
     return db.query(models.teacher).filter(models.teacher.LID==teacher_id).first()
@@ -23,6 +34,16 @@ def create_teacher(db:Session,teacher:schemas.teacher):
     db.refresh(db_teacher)
     return db_teacher
 
+def update_teacher(db:Session,data,id:int):
+    query=Update(models.teacher).where(models.teacher.LID==id).value(data)
+    db.execute(query)
+    db.commit()
+
+def delete_teacher(db:Session,id:int):
+    query=delete(models.teacher).where(models.teacher.LID==id)
+    db.execute(query)
+    db.commit()
+
 def get_student(db:Session ,student_id:int):
     return db.query(models.student).filter(models.student.STID==student_id).first()
 
@@ -33,6 +54,15 @@ def create_student(db:Session,student:schemas.student):
     db.refresh(db_student)
     return db_student
 
+def update_student(db:Session,data,id:int):
+    query=Update(models.student).where(models.student.STID==id).value(data)
+    db.execute(query)
+    db.commit()
+
+def delete_student(db:Session,id:int):
+    query=delete(models.student).where(models.student.STID==id)
+    db.execute(query)
+    db.commit()
 
 
 

@@ -5,9 +5,8 @@ from datetime import datetime
 
 
 city=["تبریز","ارومیه","اردبیل","اصفهان", "کرج", "ایلام", "بوشهر","تهران", "شهرکرد", "مشهد", "بیرجند", "بجنورد", "اهواز","زنجان", "سمنان","زاهدان", "شیراز", "قزوین", "قم", "سنندج","کرمان", "کرمانشاه", "یاسوج", "گرگان", "رشت", "خرم‌آباد", "ساری","اراک", "بندرعباس", "یزد"]
-eror1={}
-eror2={}
-eror3={}
+
+
 namepatern=r"^[آ-ی]+$"
 idsopatern=r"^\d{6}-\d{2}-[آ-ی]"
 departments=['فنی و مهندسی','علوم پایه','علوم انسانی','دامپزشکی','اقتصاد','کشاورزی','منابع طبیعی']
@@ -17,6 +16,7 @@ marriage=['مجرد','متاهل']
 
 
 def checkcourse(value):
+    eror1={}
     if len(value.CID)!=5:
         eror1['CID']='کد درس باید یک عدد پنج رقمی باشد'
     if re.fullmatch(namepatern,value.CName)==None:
@@ -39,6 +39,7 @@ def checkcourse(value):
  
 
 def checkteacher(value):
+    eror2={}
     if len(value.LID)!=6:
         eror2['LID']='کد استاد نامعتبر است'
     if re.fullmatch(namepatern,value.FName)==None :
@@ -83,7 +84,7 @@ def checkteacher(value):
 
    
 def checkstudent(value):
-        
+    eror3={}
     if len(value.STID)!=11:
        eror3['STID']='شماره دانشجویی باید 11 رقم باشد'
     elif value.STID[0:3] not in ['400','401','402']:

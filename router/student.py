@@ -17,9 +17,9 @@ def create_student(student:schemas.student,db:Session=Depends(get_db)):
     return crud.create_student(student=student,db=db) 
 
 
-@router.get( '/getteacher/{student_id}', response_model=schemas.student)
+@router.get( '/getstudent/{student_id}', response_model=schemas.student)
 def read_student(student_id:int ,db:Session=Depends(get_db)):
     db_student=crud.get_student(db=db,student_id=student_id)
-    if read_student is None:
+    if db_student is None:
         raise HTTPException(status_code=404, detail="دانشجو یافت نشد")
     return db_student
