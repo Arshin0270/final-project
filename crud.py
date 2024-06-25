@@ -1,6 +1,6 @@
-from sqlalchemy.orm import Session, Update ,delete
+from sqlalchemy.orm import Session
 import models, schemas
-
+from sqlalchemy import update,delete
 
 def get_course(db: Session, course_id: int):
     return db.query(models.course).filter(models.course.CID == course_id).first()
@@ -13,7 +13,7 @@ def create_course(db: Session, course: schemas.course):
     return db_course
 
 def update_course(db:Session,data,id:int):
-    query=Update(models.course).where(models.course.CID==id).value(data)
+    query=update(models.course).where(models.course.CID==id).values(data)
     db.execute(query)
     db.commit()
 
@@ -35,7 +35,7 @@ def create_teacher(db:Session,teacher:schemas.teacher):
     return db_teacher
 
 def update_teacher(db:Session,data,id:int):
-    query=Update(models.teacher).where(models.teacher.LID==id).value(data)
+    query=update(models.teacher).where(models.teacher.LID==id).values(data)
     db.execute(query)
     db.commit()
 
@@ -55,7 +55,7 @@ def create_student(db:Session,student:schemas.student):
     return db_student
 
 def update_student(db:Session,data,id:int):
-    query=Update(models.student).where(models.student.STID==id).value(data)
+    query=update(models.student).where(models.student.STID==id).values(data)
     db.execute(query)
     db.commit()
 
