@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException,Body
+from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 from dependencies import get_db
 import crud, schemas
@@ -16,7 +16,7 @@ def create_course(course: schemas.course, db: Session = Depends(get_db)):
     if db_course:
         raise HTTPException(status_code=400, detail="درس وجود دارد")
     return crud.create_course(db=db, course=course)
-
+ 
 
 @router.get("/getcourse/{course_id}",response_model=schemas.course) 
 def read_course(course_id: int, db: Session = Depends(get_db)):

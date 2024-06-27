@@ -13,7 +13,7 @@ def create_course(db: Session, course: schemas.course):
     return db_course
 
 def update_course(db:Session,data,id:int):
-    query=update(models.course).where(models.course.CID==id).values(data)
+    query=update(models.course).where(models.course.CID==id).values(**data.dict())
     db.execute(query)
     db.commit()
 
@@ -35,7 +35,7 @@ def create_teacher(db:Session,teacher:schemas.teacher):
     return db_teacher
 
 def update_teacher(db:Session,data,id:int):
-    query=update(models.teacher).where(models.teacher.LID==id).values(data)
+    query=update(models.teacher).where(models.teacher.LID==id).values(**data.dict())
     db.execute(query)
     db.commit()
 
@@ -55,7 +55,7 @@ def create_student(db:Session,student:schemas.student):
     return db_student
 
 def update_student(db:Session,data,id:int):
-    query=update(models.student).where(models.student.STID==id).values(data)
+    query=update(models.student).where(models.student.STID==id).values(**data.dict())
     db.execute(query)
     db.commit()
 
