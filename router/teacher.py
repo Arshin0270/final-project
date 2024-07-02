@@ -11,7 +11,7 @@ router=APIRouter()
 
 @router.post("/createteacher/", response_model=schemas.teacher)
 def create_teacher(teacher:schemas.teacher,db:Session=Depends(get_db)):
-    validation.checkteacher(value=teacher)
+    validation.checkteacher(value=teacher,db=db)
     db_teacher=crud.get_teacher(db=db,teacher_id=teacher.LID)
     if db_teacher!=None:
         raise HTTPException(status_code=400,detail='استاد وجود دارد')

@@ -10,7 +10,7 @@ router=APIRouter()
 
 @router.post("/createstudent/", response_model=schemas.student)
 def create_student(student:schemas.student,db:Session=Depends(get_db)):
-    validation.checkstudent(value=student)
+    validation.checkstudent(value=student,db=db)
     db_student=crud.get_student(db=db,student_id=student.STID)
     if db_student:
         raise HTTPException(status_code=400,detail='دانشجو وجود دارد')

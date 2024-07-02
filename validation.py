@@ -1,7 +1,7 @@
 import re
 from fastapi import HTTPException
 from datetime import datetime
-
+from crud import get_course,get_teacher
 
 
 city=["تبریز","ارومیه","اردبیل","اصفهان", "کرج", "ایلام", "بوشهر","تهران", "شهرکرد", "مشهد", "بیرجند", "بجنورد", "اهواز","زنجان", "سمنان","زاهدان", "شیراز", "قزوین", "قم", "سنندج","کرمان", "کرمانشاه", "یاسوج", "گرگان", "رشت", "خرم‌آباد", "ساری","اراک", "بندرعباس", "یزد"]
@@ -38,7 +38,7 @@ def checkcourse(value):
 
  
 
-def checkteacher(value):
+def checkteacher(value,db):
     eror2={}
     if len(value.LID)!=6:
         eror2['LID']='کد استاد نامعتبر است'
@@ -72,6 +72,11 @@ def checkteacher(value):
         eror2['HPone']='شماره تلفن ثابت نادرست است'
     if len(value.ID)!=10:
         eror2['ID']='کد ملی نامعتبر است'
+    LCourseID=value.LCourseID.split("*")
+    for i in LCourseID:
+        x=get_course(db=db,course_id=i)
+        if x is None:
+            raise HTTPException(status_code=400,detail="درس وارد شده موجود نیست")
     if eror2!={}:
         raise HTTPException(detail=eror2,status_code=400)
     else:
@@ -83,7 +88,7 @@ def checkteacher(value):
 
 
    
-def checkstudent(value):
+def checkstudent(value,db):
     eror3={}
     if len(value.STID)!=11:
        eror3['STID']='شماره دانشجویی باید 11 رقم باشد'
@@ -129,6 +134,17 @@ def checkstudent(value):
         eror3['Birth']='تاریخ تولد اشتباه است'
     if len(value.ID)!=10:
         eror3['ID']='کد ملی نامعتبر است'
+    SCourse=value.SCourse.split("*")
+    for i in SCourse:
+        x=get_course(db=db,course_id=i)
+        if x is None:
+            raise HTTPException(status_code=400,detail="کد درس وارد شده در جدول موجود نیست")
+    LIDs=value.LIDs.split("*")
+    for i in LIDs:
+        y=get_teacher(db=db,teacher_id=i)
+        if y is None:
+            raise HTTPException(status_code=400,detail="کد استاد اشتباه وارد شده است")
+    
     if eror3!={}:
         raise HTTPException(detail=eror3,status_code=400)
     else:
