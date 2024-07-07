@@ -24,6 +24,12 @@ class teacher(BaseModel):
     HPone:str
     LCourseID:str
 
+class teacher_out(BaseModel):
+    LID:str
+    FName:str
+    LName:str
+    ID:str
+
 class student(BaseModel):
     STID:str
     FName:str
@@ -41,6 +47,10 @@ class student(BaseModel):
     Married:str
     ID:str
     SCourse:str
-    LIDs:str
 
+class student_out(BaseModel):
+    STID:str
+    FName:str
+    LName:str
+    Father:str
 

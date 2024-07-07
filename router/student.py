@@ -8,7 +8,7 @@ import validation
 
 router=APIRouter()
 
-@router.post("/createstudent/", response_model=schemas.student)
+@router.post("/createstudent/", response_model=schemas.student_out)
 def create_student(student:schemas.student,db:Session=Depends(get_db)):
     validation.checkstudent(value=student,db=db)
     db_student=crud.get_student(db=db,student_id=student.STID)
@@ -17,7 +17,7 @@ def create_student(student:schemas.student,db:Session=Depends(get_db)):
     return crud.create_student(db=db,student=student) 
 
 
-@router.get( '/getstudent/{student_id}', response_model=schemas.student)
+@router.get( '/getstudent/{student_id}', response_model=schemas.student_out)
 def read_student(student_id:int ,db:Session=Depends(get_db)):
     db_student=crud.get_student(db=db,student_id=student_id)
     if db_student is None:
@@ -34,7 +34,7 @@ def update_student(student:schemas.student,id:int,db:Session=Depends(get_db)):
         db_student=crud.get_student(db=db,student_id=student.STID)
         if db_student:
             raise HTTPException(status_code=400,detail="دانشجو تکراری است ")
-    validation.checkstudent(student)
+    validation.checkstudent(value=student,db=db)
     crud.update_student(db=db,data=student,id=id,)
     return "به روز رسانی اطلاعات دانشجو موفقیت امیز بود"
 

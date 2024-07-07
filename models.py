@@ -1,5 +1,21 @@
-from sqlalchemy import  Column, Integer, String,SMALLINT,ForeignKey
+from sqlalchemy import  Column, Integer, String,SMALLINT,ForeignKey,Table
 from database import Base
+from sqlalchemy.orm import relationship
+
+
+
+association_course_teacher=Table("association_course_teacher",Base.metadata,
+    Column("CID",ForeignKey("course.CID",ondelete="cascade",onupdate="cascade")),
+    Column("LID",ForeignKey("teacher.LID",ondelete="cascade",onupdate="cascade")))
+
+
+
+association_course_student=Table("association_course_student",Base.metadata,
+    Column("CID",ForeignKey("course.CID",ondelete="cascade",onupdate="cascade")),
+    Column("STID",ForeignKey("student.STID",ondelete="cascade",onupdate="cascade")))
+
+
+
 
 class course(Base):
     __tablename__='course'
@@ -7,6 +23,8 @@ class course(Base):
     CName=Column(String)
     Department=Column(String)
     Credit=Column(SMALLINT)
+    students=relationship('student',secondary=association_course_student,back_populates='courses')
+    teachers=relationship('teacher',secondary=association_course_teacher,back_populates='courses')
 
 class teacher(Base):
     __tablename__='teacher'
@@ -22,7 +40,7 @@ class teacher(Base):
     Postalcode=Column(String)
     CPone=Column(String)
     HPone=Column(String)
-    LCourseID=Column(String)
+    courses=relationship('course',secondary=association_course_teacher,back_populates='teachers')
 
 class student(Base):
     __tablename__='student'
@@ -41,12 +59,5 @@ class student(Base):
     Major=Column(String)
     Married=Column(String)
     ID=Column(String)
-    SCourse=Column(String)
-    LIDs=Column(String)
+    courses=relationship('course',secondary=association_course_student,back_populates='students')
 
-class course_teacher_student(Base):
-    __tablename__='course_teacher_tudent'
-    counter=Column(Integer,primary_key=True)
-    CID=Column(String,ForeignKey('course.CID'))
-    LID=Column(String,ForeignKey('teacher.LID'))
-    STID=Column(String,ForeignKey('student.STID'))

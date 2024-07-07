@@ -139,12 +139,7 @@ def checkstudent(value,db):
         x=get_course(db=db,course_id=i)
         if x is None:
             raise HTTPException(status_code=400,detail="کد درس وارد شده در جدول موجود نیست")
-    LIDs=value.LIDs.split("*")
-    for i in LIDs:
-        y=get_teacher(db=db,teacher_id=i)
-        if y is None:
-            raise HTTPException(status_code=400,detail="کد استاد اشتباه وارد شده است")
-    
+
     if eror3!={}:
         raise HTTPException(detail=eror3,status_code=400)
     else:

@@ -9,7 +9,7 @@ import validation
 router=APIRouter()
 
 
-@router.post("/createteacher/", response_model=schemas.teacher)
+@router.post("/createteacher/", response_model=schemas.teacher_out)
 def create_teacher(teacher:schemas.teacher,db:Session=Depends(get_db)):
     validation.checkteacher(value=teacher,db=db)
     db_teacher=crud.get_teacher(db=db,teacher_id=teacher.LID)
@@ -18,7 +18,7 @@ def create_teacher(teacher:schemas.teacher,db:Session=Depends(get_db)):
     return crud.create_teacher(db=db,teacher=teacher)
 
 
-@router.get('/getteacher/{teacher_id}', response_model=schemas.teacher)
+@router.get('/getteacher/{teacher_id}', response_model=schemas.teacher_out)
 def read_teacher(teacher_id:int,db:Session=Depends(get_db)):
     db_teacher=crud.get_teacher(teacher_id=teacher_id,db=db)
     if db_teacher is None:
@@ -35,8 +35,8 @@ def update_teacher(teacher:schemas.teacher,id:int,db:Session=Depends(get_db)):
         if db_teacher:
             raise HTTPException(status_code=400,detail=" استاد تکراری است")
 
-    validation.checkteacher(teacher)
-    crud.update_teacher(db=db,data=teacher,id=id)
+    validation.checkteacher(teacher,db)
+    crud.update_teacher(db=db,teacher=teacher,id=id)
     return  "به روز رسانی اطلاعات استاد موفقیت امیز بود"
 
 

@@ -5,7 +5,7 @@ WORKDIR /src
 
 
 
-COPY ./requrements.txt/src
+COPY ./requrements.txt /src
 
 
 
@@ -15,4 +15,4 @@ RUN pip install -r requrements.txt
 COPY . .
 
 
-CMD ["uvicorn","main.py:app","--host","8000"]
+CMD ["uvicorn","main.py:app","--host","0.0.0.0","--port","8000"]
